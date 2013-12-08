@@ -1,11 +1,13 @@
 module GameOfLife
 
   class CellState
-
+    def initialize state
+      @state = state
+    end
   end
 
-  DEAD_CELL = CellState.new
-  ALIVE_CELL = CellState.new
+  DEAD_CELL = CellState.new 'DEAD'
+  ALIVE_CELL = CellState.new 'ALIVE'
 
   class Cell
     attr_accessor :state
@@ -22,6 +24,10 @@ module GameOfLife
     def listen_for_state_change(listener)
       @listener = listener
       @listener.cellIs @state
+    end
+
+    def is_alive
+      @state == GameOfLife::ALIVE_CELL
     end
   end
 

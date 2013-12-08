@@ -24,6 +24,7 @@ describe 'game of life cells' do
 
     it 'should be dead on creation' do
       @cell_state_listener.current_state.should == GameOfLife::DEAD_CELL
+      @cell.is_alive.should == false
     end
 
     it 'should stay dead with < 2 alive neighbors' do
@@ -31,6 +32,13 @@ describe 'game of life cells' do
       @cell_state_listener.current_state.should == GameOfLife::DEAD_CELL
     end
 
+    it 'should come alive if it has 2 live neighbors' do
+      @neighbors = GameOfLife::Neighbors.new([
+          GameOfLife::Cell.new(GameOfLife::ALIVE_CELL),
+          GameOfLife::Cell.new(GameOfLife::ALIVE_CELL)])
+      @cell.change_state @neighbors
+      @cell_state_listener.current_state.should == GameOfLife::ALIVE_CELL
+    end
   end
 
   describe 'alive cells' do
@@ -41,6 +49,7 @@ describe 'game of life cells' do
 
     it 'can be created ALIVE' do
       @cell_state_listener.current_state.should == GameOfLife::ALIVE_CELL
+      @cell.is_alive.should == true
     end
 
     it 'should die with < 2 alive neighbors' do
