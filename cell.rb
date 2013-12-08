@@ -14,12 +14,12 @@ module GameOfLife
       @state = state || GameOfLife::DEAD_CELL
     end
 
-    def changeState(neighbors)
+    def change_state(neighbors)
       @state = neighbors.determine_next_state
       @listener.cellIs @state
     end
 
-    def listenForStateChange(listener)
+    def listen_for_state_change(listener)
       @listener = listener
       @listener.cellIs @state
     end

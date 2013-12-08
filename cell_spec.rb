@@ -12,30 +12,41 @@ end
 describe 'game of life cells' do
 
   before do
-    @cell = GameOfLife::Cell.new
+    @neighbors = GameOfLife::Neighbors.new
     @cell_state_listener = CellStateListener.new
-    @cell.listenForStateChange @cell_state_listener
   end
 
-  describe 'cell with < 2 alive neighbors' do
-    it 'dead cell should stay dead' do
-      neighbors = GameOfLife::Neighbors.new
-      @cell.changeState neighbors
+  describe 'dead cells' do
+    before do
+      @cell = GameOfLife::Cell.new
+      @cell.listen_for_state_change @cell_state_listener
+    end
+
+    it 'should be dead on creation' do
       @cell_state_listener.current_state.should == GameOfLife::DEAD_CELL
     end
 
-    it 'alive cell should die' do
+    it 'dead cell should stay dead with < 2 alive neighbors' do
+      @cell.change_state @neighbors
+      @cell_state_listener.current_state.should == GameOfLife::DEAD_CELL
+    end
+
+  end
+
+  describe 'alive cells' do
+    before do
       @cell = GameOfLife::Cell.new GameOfLife::ALIVE_CELL
-      @cell.listenForStateChange @cell_state_listener
-      neighbors = GameOfLife::Neighbors.new
-      @cell.changeState neighbors
-      @cell_state_listener.current_state.should == GameOfLife::DEAD_CELL
+      @cell.listen_for_state_change @cell_state_listener
     end
-  end
 
-  describe 'new cell creation' do
+    it 'can be created ALIVE' do
+      @cell_state_listener.current_state.should == GameOfLife::ALIVE_CELL
+    end
 
-    it 'should be dead' do
+    it 'should die with < 2 alive neighbors' do
+      @cell = GameOfLife::Cell.new GameOfLife::ALIVE_CELL
+      @cell.listen_for_state_change @cell_state_listener
+      @cell.change_state @neighbors
       @cell_state_listener.current_state.should == GameOfLife::DEAD_CELL
     end
 
