@@ -9,6 +9,12 @@ class CellStateListener
   end
 end
 
+def alive_neighbors(cnt = 1)
+  neighbors = []
+  (1..cnt).each { neighbors << GameOfLife::Cell.new(GameOfLife::ALIVE_CELL) }
+  GameOfLife::Neighbors.new neighbors
+end
+
 describe 'game of life cells' do
 
   before do
@@ -27,25 +33,23 @@ describe 'game of life cells' do
       @cell.is_alive.should == false
     end
 
-    it 'should stay dead with < 2 alive neighbors' do
-      @cell.change_state @neighbors
+    it 'should stay dead with no alive neighbors' do
+      @cell.change_state alive_neighbors 0
+      @cell_state_listener.current_state.should == GameOfLife::DEAD_CELL
+    end
+
+    it 'should stay dead with 1 alive neighbor' do
+      @cell.change_state alive_neighbors 0
       @cell_state_listener.current_state.should == GameOfLife::DEAD_CELL
     end
 
     it 'should come alive if it has 2 live neighbors' do
-      @neighbors = GameOfLife::Neighbors.new([
-          GameOfLife::Cell.new(GameOfLife::ALIVE_CELL),
-          GameOfLife::Cell.new(GameOfLife::ALIVE_CELL)])
-      @cell.change_state @neighbors
+      @cell.change_state alive_neighbors 2
       @cell_state_listener.current_state.should == GameOfLife::ALIVE_CELL
     end
 
     it 'should come alive if it has 3 live neighbors' do
-      @neighbors = GameOfLife::Neighbors.new([
-          GameOfLife::Cell.new(GameOfLife::ALIVE_CELL),
-          GameOfLife::Cell.new(GameOfLife::ALIVE_CELL),
-          GameOfLife::Cell.new(GameOfLife::ALIVE_CELL)])
-      @cell.change_state @neighbors
+      @cell.change_state alive_neighbors 3
       @cell_state_listener.current_state.should == GameOfLife::ALIVE_CELL
     end
   end
