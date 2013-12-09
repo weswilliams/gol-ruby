@@ -6,6 +6,12 @@ module GameOfLife
     end
   end
 
+  class DeadState
+    def change(bool)
+
+    end
+  end
+
   DEAD_CELL = CellState.new 'DEAD'
   ALIVE_CELL = CellState.new 'ALIVE'
 
