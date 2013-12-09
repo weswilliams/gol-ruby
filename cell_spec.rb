@@ -64,9 +64,7 @@ describe 'game of life cells' do
       @cell.is_alive.should == true
     end
 
-    it 'should die with < 2 alive neighbors' do
-      @cell = GameOfLife::Cell.new GameOfLife::ALIVE_CELL
-      @cell.listen_for_state_change @cell_state_listener
+    it 'should die with no alive neighbors' do
       @cell.change_state alive_neighbors 0
       @cell_state_listener.current_state.should == GameOfLife::DEAD_CELL
     end
