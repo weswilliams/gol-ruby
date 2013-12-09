@@ -18,7 +18,6 @@ end
 describe 'game of life cells' do
 
   before do
-    @neighbors = GameOfLife::Neighbors.new
     @cell_state_listener = CellStateListener.new
   end
 
@@ -68,7 +67,7 @@ describe 'game of life cells' do
     it 'should die with < 2 alive neighbors' do
       @cell = GameOfLife::Cell.new GameOfLife::ALIVE_CELL
       @cell.listen_for_state_change @cell_state_listener
-      @cell.change_state @neighbors
+      @cell.change_state alive_neighbors 0
       @cell_state_listener.current_state.should == GameOfLife::DEAD_CELL
     end
 
