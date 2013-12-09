@@ -39,6 +39,15 @@ describe 'game of life cells' do
       @cell.change_state @neighbors
       @cell_state_listener.current_state.should == GameOfLife::ALIVE_CELL
     end
+
+    it 'should come alive if it has 3 live neighbors' do
+      @neighbors = GameOfLife::Neighbors.new([
+          GameOfLife::Cell.new(GameOfLife::ALIVE_CELL),
+          GameOfLife::Cell.new(GameOfLife::ALIVE_CELL),
+          GameOfLife::Cell.new(GameOfLife::ALIVE_CELL)])
+      @cell.change_state @neighbors
+      @cell_state_listener.current_state.should == GameOfLife::ALIVE_CELL
+    end
   end
 
   describe 'alive cells' do

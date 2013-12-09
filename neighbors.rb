@@ -11,11 +11,15 @@ module GameOfLife
     end
 
     def less_than_two_live
-      @cells.count{ |cell| cell.is_alive } < 2
+      number_alive() < 2
     end
 
     def two_alive
-      @cells.count{ |cell| cell.is_alive } == 2
+      number_alive() == 2 || number_alive == 3
+    end
+
+    def number_alive
+      @cells.count { |cell| cell.is_alive }
     end
 
   end
