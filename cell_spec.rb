@@ -37,6 +37,10 @@ describe 'game of life cells' do
       @cell_state_listener.current_state.should == GameOfLife::DEAD_CELL
     end
 
+    it 'should stay come alive with 3 live neighbors' do
+      @cell.change_state alive_neighbors 3
+      @cell_state_listener.current_state.should == GameOfLife::ALIVE_CELL
+    end
   end
 
   describe 'alive cells' do
