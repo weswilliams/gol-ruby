@@ -27,29 +27,9 @@ describe 'game of life cells' do
       @cell.listen_for_state_change @cell_state_listener
     end
 
-    it 'should be dead on creation' do
+    it 'should be dead on creation by default' do
       @cell_state_listener.current_state.should == GameOfLife::DEAD_CELL
       @cell.is_alive.should == false
-    end
-
-    it 'should stay dead with no alive neighbors' do
-      @cell.change_state alive_neighbors 0
-      @cell_state_listener.current_state.should == GameOfLife::DEAD_CELL
-    end
-
-    it 'should stay dead with 1 alive neighbor' do
-      @cell.change_state alive_neighbors 0
-      @cell_state_listener.current_state.should == GameOfLife::DEAD_CELL
-    end
-
-    it 'should come alive if it has 2 live neighbors' do
-      @cell.change_state alive_neighbors 2
-      @cell_state_listener.current_state.should == GameOfLife::ALIVE_CELL
-    end
-
-    it 'should come alive if it has 3 live neighbors' do
-      @cell.change_state alive_neighbors 3
-      @cell_state_listener.current_state.should == GameOfLife::ALIVE_CELL
     end
   end
 
