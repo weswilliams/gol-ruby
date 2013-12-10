@@ -5,7 +5,7 @@ module GameOfLife
       @state = state
     end
     def apply(rule, alive_neighbors)
-      rule.apply alive_neighbors
+      rule.apply alive_neighbors, self
     end
   end
 
@@ -17,7 +17,7 @@ module GameOfLife
       @cell_state = cell_state
       @rule = rule
     end
-    def apply(number_alive)
+    def apply(number_alive, current_state)
       @rule.call number_alive
     end
     def rule_cell_state
