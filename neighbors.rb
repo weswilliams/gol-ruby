@@ -1,22 +1,27 @@
 module GameOfLife
 
-  class LessThanTwoAliveRule
-    def apply(number_alive)
-      number_alive < 2
+  class Rule
+    def initialize(cell_state, rule)
+      @cell_state = cell_state
+      @rule = rule
     end
-
+    def apply(number_alive)
+      @rule.call number_alive
+    end
     def rule_cell_state
-      GameOfLife::DEAD_CELL
+      @cell_state
     end
   end
 
-  class TwoOrThreeAliveRule
-    def apply(number_alive)
-      number_alive == 2 || number_alive == 3
+  class AliveRule < SimpleDelegator
+    def initialize(&rule)
+      __setobj__ Rule.new(GameOfLife::ALIVE_CELL, rule)
     end
+  end
 
-    def rule_cell_state
-      GameOfLife::ALIVE_CELL
+  class DeadRule < SimpleDelegator
+    def initialize(&rule)
+      __setobj__ Rule.new(GameOfLife::DEAD_CELL, rule)
     end
   end
 
@@ -24,19 +29,14 @@ module GameOfLife
 
     def initialize(cells = [])
       @cells = cells
-      @rules = [LessThanTwoAliveRule.new, TwoOrThreeAliveRule.new]
+      @rules = [
+          DeadRule.new { number_alive < 2 },
+          AliveRule.new {number_alive == 2 || number_alive == 3}
+      ]
     end
 
     def determine_next_state
       @rules.find { |rule| rule.apply(number_alive) }.rule_cell_state
-    end
-
-    def less_than_two_live
-      number_alive() < 2
-    end
-
-    def two_alive
-      number_alive() == 2 || number_alive == 3
     end
 
     def number_alive
