@@ -31,7 +31,8 @@ module GameOfLife
       @cells = cells
       @rules = [
           DeadRule.new { number_alive < 2 },
-          AliveRule.new {number_alive == 2 || number_alive == 3}
+          AliveRule.new {number_alive == 2 || number_alive == 3},
+          DeadRule.new { number_alive > 3 }
       ]
     end
 

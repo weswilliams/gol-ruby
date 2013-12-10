@@ -83,6 +83,11 @@ describe 'game of life cells' do
       @cell.change_state alive_neighbors 3
       @cell_state_listener.current_state.should == GameOfLife::ALIVE_CELL
     end
+
+    it 'should die with > 3 alive neighbors due to over crowding' do
+      @cell.change_state alive_neighbors 4
+      @cell_state_listener.current_state.should == GameOfLife::DEAD_CELL
+    end
   end
 
 end
