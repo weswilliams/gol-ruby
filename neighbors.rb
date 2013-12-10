@@ -36,7 +36,7 @@ module GameOfLife
       ]
     end
 
-    def determine_next_state
+    def determine_next_state(current_state)
       @rules.find { |rule| rule.apply(number_alive) }.rule_cell_state
     end
 

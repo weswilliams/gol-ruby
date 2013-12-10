@@ -17,7 +17,7 @@ module GameOfLife
     end
 
     def change_state(neighbors)
-      @state = neighbors.determine_next_state
+      @state = neighbors.determine_next_state @state
       @listener.cellIs @state
     end
 
