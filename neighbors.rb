@@ -13,7 +13,7 @@ module GameOfLife
     end
 
     def determine_next_state(current_state)
-      @rules.find(Proc.new {Rule.new current_state, nil}) { |rule| current_state.apply(rule, number_alive) }.rule_cell_state
+      current_state.next_state @rules, number_alive
     end
 
     def number_alive

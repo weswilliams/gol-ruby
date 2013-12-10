@@ -4,8 +4,11 @@ module GameOfLife
     def initialize state
       @state = state
     end
-    def apply(rule, alive_neighbors)
-      rule.apply alive_neighbors, self
+    def next_state(rules, alive_neighbors)
+      (rules + [default_rule]).find { |rule| rule.apply(alive_neighbors, self) }.rule_cell_state
+    end
+    def default_rule
+      Rule.new(self, Proc.new {true})
     end
   end
 
