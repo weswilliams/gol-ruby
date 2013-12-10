@@ -4,10 +4,38 @@ module GameOfLife
     def initialize state
       @state = state
     end
+    def apply(rule, alive_neighbors)
+      rule.apply alive_neighbors
+    end
   end
 
   DEAD_CELL = CellState.new 'DEAD'
   ALIVE_CELL = CellState.new 'ALIVE'
+
+  class Rule
+    def initialize(cell_state, rule)
+      @cell_state = cell_state
+      @rule = rule
+    end
+    def apply(number_alive)
+      @rule.call number_alive
+    end
+    def rule_cell_state
+      @cell_state
+    end
+  end
+
+  class AliveRule < SimpleDelegator
+    def initialize(&rule)
+      __setobj__ Rule.new(GameOfLife::ALIVE_CELL, rule)
+    end
+  end
+
+  class DeadRule < SimpleDelegator
+    def initialize(&rule)
+      __setobj__ Rule.new(GameOfLife::DEAD_CELL, rule)
+    end
+  end
 
   class Cell
     attr_accessor :state

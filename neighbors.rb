@@ -1,30 +1,5 @@
 module GameOfLife
 
-  class Rule
-    def initialize(cell_state, rule)
-      @cell_state = cell_state
-      @rule = rule
-    end
-    def apply(number_alive)
-      @rule.call number_alive
-    end
-    def rule_cell_state
-      @cell_state
-    end
-  end
-
-  class AliveRule < SimpleDelegator
-    def initialize(&rule)
-      __setobj__ Rule.new(GameOfLife::ALIVE_CELL, rule)
-    end
-  end
-
-  class DeadRule < SimpleDelegator
-    def initialize(&rule)
-      __setobj__ Rule.new(GameOfLife::DEAD_CELL, rule)
-    end
-  end
-
   class Neighbors
 
     def initialize(cells = [])
@@ -37,7 +12,7 @@ module GameOfLife
     end
 
     def determine_next_state(current_state)
-      @rules.find { |rule| rule.apply(number_alive) }.rule_cell_state
+      @rules.find { |rule| current_state.apply(rule, number_alive) }.rule_cell_state
     end
 
     def number_alive
