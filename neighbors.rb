@@ -5,10 +5,10 @@ module GameOfLife
     def initialize(cells = [])
       @cells = cells
       @rules = [
-          DeadRule.new { |number_alive| number_alive < 2 },
-          AliveRule.new { |number_alive, current_state| ( current_state == GameOfLife::ALIVE_CELL && number_alive == 2 ) },
-          AliveRule.new { |number_alive,| ( number_alive == 3 ) },
-          DeadRule.new { |number_alive| number_alive > 3 }
+          DeadRule.new { |alive_neighbors| alive_neighbors < 2 },
+          AliveRule.new { |alive_neighbors, current_state| ( current_state == GameOfLife::ALIVE_CELL && alive_neighbors == 2 ) },
+          AliveRule.new { |alive_neighbors,| ( alive_neighbors == 3 ) },
+          DeadRule.new { |alive_neighbors| alive_neighbors > 3 }
       ]
     end
 
