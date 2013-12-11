@@ -19,20 +19,8 @@ module GameOfLife
     end
   end
 
-  class DeadState < SimpleDelegator
-    def initialize
-      __setobj__ CellState.new 'DEAD'
-    end
-  end
-
-  class AliveState < SimpleDelegator
-    def initialize
-      __setobj__ CellState.new 'ALIVE'
-    end
-  end
-
-  DEAD_CELL = DeadState.new
-  ALIVE_CELL = AliveState.new
+  DEAD_CELL = CellState.new 'DEAD'
+  ALIVE_CELL = CellState.new 'ALIVE'
 
   class Cell
     attr_accessor :state
