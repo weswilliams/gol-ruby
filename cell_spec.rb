@@ -37,7 +37,7 @@ describe 'game of life cells' do
       @cell_state_listener.current_state.should == GameOfLife::DEAD_CELL
     end
 
-    it 'should stay come alive with 3 live neighbors' do
+    it 'should come alive with 3 live neighbors' do
       @cell.change_state alive_neighbors 3
       @cell_state_listener.current_state.should == GameOfLife::ALIVE_CELL
     end
@@ -54,22 +54,22 @@ describe 'game of life cells' do
       @cell.is_alive.should == true
     end
 
-    it 'should die with no alive neighbors' do
+    it 'should die with no live neighbors' do
       @cell.change_state alive_neighbors 0
       @cell_state_listener.current_state.should == GameOfLife::DEAD_CELL
     end
 
-    it 'should die with 1 alive neighbor' do
+    it 'should die with 1 live neighbor' do
       @cell.change_state alive_neighbors 1
       @cell_state_listener.current_state.should == GameOfLife::DEAD_CELL
     end
 
-    it 'should stay alive with 2 neighbors' do
+    it 'should stay alive with 2 live neighbors' do
       @cell.change_state alive_neighbors 2
       @cell_state_listener.current_state.should == GameOfLife::ALIVE_CELL
     end
 
-    it 'should stay alive with 3 neighbors' do
+    it 'should stay alive with 3 live neighbors' do
       @cell.change_state alive_neighbors 3
       @cell_state_listener.current_state.should == GameOfLife::ALIVE_CELL
     end
