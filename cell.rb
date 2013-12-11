@@ -34,12 +34,12 @@ module GameOfLife
 
     def change_state(neighbors)
       @state = @state.next_state neighbors
-      @listener.cellIs @state
+      @listener.cell_is @state
     end
 
     def listen_for_state_change(listener)
       @listener = listener
-      @listener.cellIs @state
+      @listener.cell_is @state
     end
 
     def is_alive

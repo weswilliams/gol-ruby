@@ -4,7 +4,7 @@ require_relative 'neighbors'
 
 class CellStateListener
   attr_accessor :current_state
-  def cellIs(state)
+  def cell_is(state)
     @current_state = state
   end
 end
