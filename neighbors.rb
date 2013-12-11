@@ -13,7 +13,7 @@ module GameOfLife
     end
 
     def determine_next_state(current_state)
-      current_state.next_state @rules, self
+      current_state.next_state self
     end
 
     def number_alive

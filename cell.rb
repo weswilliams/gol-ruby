@@ -3,19 +3,36 @@ require_relative 'rule'
 module GameOfLife
 
   class CellState
+    include GameOfLife
+    attr_reader :state
     def initialize state
       @state = state
     end
-    def next_state(rules, alive_neighbors)
+    def next_state(alive_neighbors)
       (rules + [default_rule]).find { |rule| rule.apply(alive_neighbors, self) }.rule_cell_state
     end
     def default_rule
       Rule.new(self) {true}
     end
+    def ==(other_state)
+      other_state.state == @state
+    end
   end
 
-  DEAD_CELL = CellState.new 'DEAD'
-  ALIVE_CELL = CellState.new 'ALIVE'
+  class DeadState < SimpleDelegator
+    def initialize
+      __setobj__ CellState.new 'DEAD'
+    end
+  end
+
+  class AliveState < SimpleDelegator
+    def initialize
+      __setobj__ CellState.new 'ALIVE'
+    end
+  end
+
+  DEAD_CELL = DeadState.new
+  ALIVE_CELL = AliveState.new
 
   class Cell
     attr_accessor :state
