@@ -47,7 +47,7 @@ module GameOfLife
     end
 
     def to_s
-      @state
+      @state.to_s
     end
   end
 

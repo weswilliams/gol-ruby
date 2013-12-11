@@ -27,6 +27,10 @@ describe 'game of life cells' do
       @cell.listen_for_state_change @cell_state_listener
     end
 
+    it 'should be represented as a space' do
+      @cell.to_s.should == ' '
+    end
+
     it 'should be dead on creation by default' do
       @cell_state_listener.current_state.should == GameOfLife::DEAD_CELL
       @cell.is_alive.should == false
@@ -47,6 +51,10 @@ describe 'game of life cells' do
     before do
       @cell = GameOfLife::Cell.new GameOfLife::ALIVE_CELL
       @cell.listen_for_state_change @cell_state_listener
+    end
+
+    it 'should be represented as a block' do
+      @cell.to_s.should == '█'
     end
 
     it 'can be created ALIVE' do
