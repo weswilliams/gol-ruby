@@ -8,8 +8,8 @@ module GameOfLife
     def initialize state
       @state = state
     end
-    def next_state(alive_neighbors)
-      (rules + [default_rule]).find { |rule| rule.apply(alive_neighbors, self) }.rule_cell_state
+    def next_state(neighbors)
+      (rules + [default_rule]).find { |rule| rule.apply(neighbors, self) }.rule_cell_state
     end
     def default_rule
       Rule.new(self) {true}
@@ -42,7 +42,7 @@ module GameOfLife
     end
 
     def change_state(neighbors)
-      @state = neighbors.determine_next_state @state
+      @state = @state.next_state neighbors
       @listener.cellIs @state
     end
 
