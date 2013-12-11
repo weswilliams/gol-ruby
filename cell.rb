@@ -17,10 +17,13 @@ module GameOfLife
     def ==(other_state)
       other_state.state == @state
     end
+    def to_s
+      @state
+    end
   end
 
-  DEAD_CELL = CellState.new 'DEAD'
-  ALIVE_CELL = CellState.new 'ALIVE'
+  DEAD_CELL = CellState.new ' '
+  ALIVE_CELL = CellState.new '█'
 
   class Cell
     attr_accessor :state
@@ -41,6 +44,10 @@ module GameOfLife
 
     def is_alive
       @state == GameOfLife::ALIVE_CELL
+    end
+
+    def to_s
+      @state
     end
   end
 
