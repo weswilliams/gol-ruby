@@ -54,7 +54,7 @@ describe 'game of life cells' do
     end
 
     it 'should be represented as a block' do
-      @cell.to_s.should == '█'
+      @cell.to_s.should == 'X'
     end
 
     it 'can be created ALIVE' do

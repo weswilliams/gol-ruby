@@ -10,7 +10,7 @@ module GameOfLife
     end
 
     def state_for(cell_representation)
-      return GameOfLife::ALIVE_CELL if "X" == cell_representation.upcase
+      return GameOfLife::ALIVE_CELL if GameOfLife::ALIVE_CELL.to_s == cell_representation.upcase
       GameOfLife::DEAD_CELL
     end
   end
