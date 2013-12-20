@@ -1,7 +1,24 @@
 module GameOfLife
 
   class GameBoard
-    def rows(board_config)
+    def initialize(board_config = "")
+      @board = rows_from board_config
+      @board.collect! {|row_cells| columns_for row_cells }
+    end
+
+    def [](index)
+      @board[index]
+    end
+
+    def rows
+      @board.size
+    end
+
+    def columns
+      @board[0].size
+    end
+
+    def rows_from(board_config)
       board_config.split("\n")
     end
 

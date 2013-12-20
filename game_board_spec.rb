@@ -4,7 +4,19 @@ require_relative 'game_board'
 describe 'initial state' do
 
   before do
-    @board = GameOfLife::GameBoard.new
+    @board = GameOfLife::GameBoard.new("X X\n X ")
+  end
+
+  it 'should be built with initial number of rows from config state' do
+    @board.rows.should == 2
+  end
+
+  it 'should be built with initial number of columns from config state' do
+    @board.columns.should == 3
+  end
+
+  it 'should be built with cells representing the state in the config' do
+    @board[0][0].is_alive.should == true
   end
 
   describe 'of columns' do
@@ -19,15 +31,15 @@ describe 'initial state' do
 
   describe 'of rows' do
     it 'should create live cell rows' do
-      @board.rows("xxx\nxxx\nxxx\n").size.should == 3
+      @board.rows_from("xxx\nxxx\nxxx\n").size.should == 3
     end
 
     it 'should create dead cell rows' do
-      @board.rows("   \n   \n   \n").size.should == 3
+      @board.rows_from("   \n   \n   \n").size.should == 3
     end
 
     it 'should create dead cell locations' do
-      @board.rows("   ")[0].size.should == 3
+      @board.rows_from("   ")[0].size.should == 3
     end
   end
 
