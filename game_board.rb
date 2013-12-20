@@ -2,8 +2,7 @@ module GameOfLife
 
   class GameBoard
     def initialize(board_config = "")
-      @board = rows_from board_config
-      @board.collect! {|row_cells| columns_for row_cells }
+      @board = rows_from(board_config).collect {|row_cells| columns_for row_cells }
     end
 
     def [](index)
