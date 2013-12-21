@@ -1,7 +1,7 @@
 require 'rspec'
 require_relative 'game_board'
 
-describe 'initial state' do
+describe 'initial state of board' do
 
   before do
     @board = GameOfLife::GameBoard.new("X X\n X ")
@@ -20,7 +20,7 @@ describe 'initial state' do
     @board[1][2].is_alive.should == false
   end
 
-  describe 'of columns' do
+  describe 'columns' do
     it 'should have live cells' do
       @board.columns_for("x")[0].is_alive.should == true
     end
@@ -30,7 +30,7 @@ describe 'initial state' do
     end
   end
 
-  describe 'of rows' do
+  describe 'rows' do
     it 'should create live cell rows' do
       @board.rows_from("xxx\nxxx\nxxx\n").size.should == 3
     end
