@@ -15,7 +15,7 @@ def alive_neighbors(cnt = 1)
   GameOfLife::Neighbors.new neighbors
 end
 
-describe 'game of life cells' do
+describe 'game of life' do
 
   before do
     @cell_state_listener = CellStateListener.new
@@ -36,7 +36,7 @@ describe 'game of life cells' do
       @cell.is_alive.should == false
     end
 
-    it 'should stay dead with 2 live neighbors' do
+    it 'should stay dead with < 3 live neighbors' do
       @cell.change_state alive_neighbors 2
       @cell_state_listener.current_state.should == GameOfLife::DEAD_CELL
     end
@@ -53,11 +53,11 @@ describe 'game of life cells' do
       @cell.listen_for_state_change @cell_state_listener
     end
 
-    it 'should be represented as a block' do
+    it 'should be represented as a X' do
       @cell.to_s.should == 'X'
     end
 
-    it 'can be created ALIVE' do
+    it 'can be created alive' do
       @cell_state_listener.current_state.should == GameOfLife::ALIVE_CELL
       @cell.is_alive.should == true
     end
