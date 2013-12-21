@@ -2,7 +2,7 @@ module GameOfLife
 
   class GameBoard
     def initialize(board_config = "")
-      @board = rows_from(board_config).collect {|row_cells| columns_for row_cells }
+      @board = rows_from(board_config).collect {|row_config| columns_for row_config }
     end
 
     def [](index)
@@ -21,8 +21,8 @@ module GameOfLife
       board_config.split("\n")
     end
 
-    def columns_for(row_cells)
-      row_cells.chars.collect { |cell| Cell.new(state_for(cell)) }
+    def columns_for(row_config)
+      row_config.chars.collect { |cell_state| Cell.new(state_for(cell_state)) }
     end
 
     def state_for(cell_representation)
