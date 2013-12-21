@@ -49,6 +49,8 @@ describe 'initial state of board' do
   end
 
   describe 'next life' do
-
+    it 'should be able to find neighbors for a cell' do
+      @board.find_neighbors_for(1,1).size.should == 8
+    end
   end
 end

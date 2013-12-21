@@ -33,6 +33,14 @@ module GameOfLife
       return GameOfLife::ALIVE_CELL if GameOfLife::ALIVE_CELL.to_s == cell_representation.upcase
       GameOfLife::DEAD_CELL
     end
+
+    def find_neighbors_for(row, col)
+      neighbors = (row-1..row+1).inject([]) {|cells, row_index|
+        (col-1..col+1).inject(cells) {|cells, col_index|
+          cells << @board[row_index, col_index] } }
+      neighbors.delete_at 4
+      neighbors
+    end
   end
 
 end
