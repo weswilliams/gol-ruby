@@ -50,7 +50,8 @@ describe 'initial state of board' do
 
   describe 'next life' do
     it 'should be able to find neighbors for a cell' do
-      @board.find_neighbors_for(1,1).size.should == 8
+      @board = GameOfLife::GameBoard.new("X X\n X \n   ")
+      @board.find_neighbors_for(1,1).number_alive.should == 2
     end
   end
 end

@@ -1,7 +1,7 @@
 module GameOfLife
 
   class GameBoard
-    def initialize(board_config = "")
+    def initialize(board_config = '')
       @board = rows_from(board_config).collect {|row_config| columns_for row_config }
     end
 
@@ -35,11 +35,24 @@ module GameOfLife
     end
 
     def find_neighbors_for(row, col)
-      neighbors = (row-1..row+1).inject([]) {|cells, row_index|
-        (col-1..col+1).inject(cells) {|cells, col_index|
-          cells << @board[row_index, col_index] } }
+      GameOfLife::Neighbors.new remove_self_from(neighboring_cols_of(neighboring_rows_of(@board, row), col))
+    end
+
+    def remove_self_from(neighbors)
       neighbors.delete_at 4
       neighbors
+    end
+
+    def neighboring_cols_of(rows, col)
+      rows.inject([]) {|cells, row| neighbor_indexes(col).inject(cells) { |cells, col_index| cells << row[col_index] } }
+    end
+
+    def neighboring_rows_of(board, row)
+      neighbor_indexes(row).inject([]) { |rows, row_index| rows << board[row_index] }
+    end
+
+    def neighbor_indexes(index)
+      (index-1..index+1)
     end
   end
 
