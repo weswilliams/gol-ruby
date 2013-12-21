@@ -5,6 +5,10 @@ module GameOfLife
       @board = rows_from(board_config).collect {|row_config| columns_for row_config }
     end
 
+    def to_s
+      @board.inject('') {|board, row| board + row.inject('') {|row_cells, cell| row_cells + cell.to_s } + "\n" }
+    end
+
     def [](index)
       @board[index]
     end

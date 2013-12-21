@@ -20,6 +20,10 @@ describe 'initial state of board' do
     @board[1][2].is_alive.should == false
   end
 
+  it 'can be represented as a string' do
+    @board.to_s.should == "X X\n X \n"
+  end
+
   describe 'columns' do
     it 'should have live cells' do
       @board.columns_for("x")[0].is_alive.should == true
@@ -44,4 +48,7 @@ describe 'initial state of board' do
     end
   end
 
+  describe 'next life' do
+
+  end
 end
