@@ -17,6 +17,7 @@ describe 'initial state' do
 
   it 'should be built with cells representing the state in the config' do
     @board[0][0].is_alive.should == true
+    @board[1][2].is_alive.should == false
   end
 
   describe 'of columns' do
