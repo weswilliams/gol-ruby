@@ -53,5 +53,9 @@ describe 'initial state of board' do
       @board = GameOfLife::GameBoard.new("X X\n X \n   ")
       @board.find_neighbors_for(1,1).number_alive.should == 2
     end
+
+    it 'should be able to find neighbors for a cell on the edge of the board' do
+    #  next test to implement
+    end
   end
 end
