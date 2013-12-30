@@ -36,16 +36,6 @@ module GameOfLife
       Cell.new @state.next_state(neighbors)
     end
 
-    def change_state(neighbors)
-      @state = @state.next_state neighbors
-      @listener.cell_is @state
-    end
-
-    def listen_for_state_change(listener)
-      @listener = listener
-      @listener.cell_is @state
-    end
-
     def is_alive
       @state == GameOfLife::ALIVE_CELL
     end
