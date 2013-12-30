@@ -1,5 +1,7 @@
 require 'rspec'
 require_relative 'game_board'
+require_relative 'cell'
+require_relative 'neighbors'
 
 describe 'initial state of board' do
 
@@ -48,14 +50,20 @@ describe 'initial state of board' do
     end
   end
 
-  describe 'next life' do
+  describe 'neighbors' do
     it 'should be able to find neighbors for a cell' do
       @board = GameOfLife::GameBoard.new("X X\n X \n   ")
       @board.find_neighbors_for(1,1).number_alive.should == 2
     end
 
     it 'should be able to find neighbors for a cell on the edge of the board' do
-    #  next test to implement
+      @board = GameOfLife::GameBoard.new("X X\n X \nX  ")
+      @board.find_neighbors_for(0,0).number_alive.should == 1
+    end
+
+    it 'should be able to find neighbors for a cell on the edge of the board' do
+      @board = GameOfLife::GameBoard.new("X X\n X \nX  ")
+      @board.find_neighbors_for(2,0).number_alive.should == 1
     end
   end
 end
