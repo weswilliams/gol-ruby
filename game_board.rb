@@ -10,10 +10,7 @@ module GameOfLife
     end
 
     def [](index)
-      if index < 0 || index >= @board.size
-        dead_cell = GameOfLife::Cell.new GameOfLife::DEAD_CELL
-        return [dead_cell, dead_cell, dead_cell]
-      end
+      return Array.new(@board[0].size, GameOfLife::Cell.new(GameOfLife::DEAD_CELL)) if index < 0 || index >= @board.size
       @board[index]
     end
 
