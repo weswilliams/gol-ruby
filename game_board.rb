@@ -12,8 +12,18 @@ module GameOfLife
     end
 
     def [](index)
-      return Array.new(columns, GameOfLife::DEAD_BOARD_CELL) if index < 0 || index >= @board.size
+      return Columns.new(Array.new(columns, GameOfLife::DEAD_BOARD_CELL)) if index < 0 || index >= @board.size
       @board[index]
+    end
+
+    def next_life
+      @board = (0...rows).inject([]) do |rows, row_index|
+        rows << Columns.new((0...columns).inject([]) do |cols, col_index|
+          cell = self[row_index][col_index]
+          neighbors_for = find_neighbors_for(row_index, col_index)
+          cols << cell.next_life(neighbors_for)
+        end)
+      end
     end
 
     def rows
@@ -74,7 +84,7 @@ end
 class Columns < SimpleDelegator
 
   def [](index)
-    return GameOfLife::DEAD_BOARD_CELL if index < 0 || index > __getobj__.size
+    return GameOfLife::DEAD_BOARD_CELL if index < 0 || index >= __getobj__.size
     __getobj__[index]
   end
 end

@@ -9,6 +9,13 @@ describe 'initial state of board' do
     @board = GameOfLife::GameBoard.new("X X\n X ")
   end
 
+  describe 'next life' do
+    it 'should generate a board representing the next state of lives' do
+      @board.next_life
+      @board.to_s.should == " X \n X \n"
+    end
+  end
+
   it 'should be built with initial number of rows from config state' do
     @board.rows.should == 2
   end
@@ -64,6 +71,11 @@ describe 'initial state of board' do
     it 'should be able to find neighbors for a cell on the edge of the board' do
       @board = GameOfLife::GameBoard.new("X X\n X \nX  ")
       @board.find_neighbors_for(2,0).number_alive.should == 1
+    end
+
+    it 'should be able to find neighbors for a cell on the edge of the board' do
+      @board = GameOfLife::GameBoard.new("X X\n X \nX  ")
+      @board.find_neighbors_for(0,2).number_alive.should == 1
     end
   end
 end

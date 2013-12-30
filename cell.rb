@@ -32,6 +32,10 @@ module GameOfLife
       @state = state || GameOfLife::DEAD_CELL
     end
 
+    def next_life(neighbors)
+      Cell.new @state.next_state(neighbors)
+    end
+
     def change_state(neighbors)
       @state = @state.next_state neighbors
       @listener.cell_is @state
