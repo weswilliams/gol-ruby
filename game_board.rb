@@ -1,5 +1,7 @@
 module GameOfLife
 
+  DEAD_BOARD_CELL = GameOfLife::Cell.new(GameOfLife::DEAD_CELL)
+
   class GameBoard
     def initialize(board_config = '')
       @board = rows_from(board_config).collect {|row_config| columns_for row_config }
@@ -10,7 +12,7 @@ module GameOfLife
     end
 
     def [](index)
-      return Array.new(@board[0].size, GameOfLife::Cell.new(GameOfLife::DEAD_CELL)) if index < 0 || index >= @board.size
+      return Array.new(columns, GameOfLife::DEAD_BOARD_CELL) if index < 0 || index >= @board.size
       @board[index]
     end
 
@@ -72,7 +74,7 @@ end
 class Columns < SimpleDelegator
 
   def [](index)
-    return GameOfLife::Cell.new(GameOfLife::DEAD_CELL) if index < 0 || index > __getobj__.size
+    return GameOfLife::DEAD_BOARD_CELL if index < 0 || index > __getobj__.size
     __getobj__[index]
   end
 end
