@@ -24,6 +24,7 @@ module GameOfLife
           cols << cell.next_life(neighbors_for)
         end)
       end
+      self
     end
 
     def rows

@@ -11,8 +11,7 @@ describe 'initial state of board' do
 
   describe 'next life' do
     it 'should generate a board representing the next state of lives' do
-      @board.next_life
-      @board.to_s.should == " X \n X \n"
+      @board.next_life.to_s.should == " X \n X \n"
     end
   end
 
