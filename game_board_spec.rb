@@ -13,6 +13,26 @@ describe 'initial state of board' do
     it 'should generate a board representing the next state of lives' do
       @board.next_life.to_s.should == " X \n X \n"
     end
+
+    it 'should handle block pattern' do
+      @board = GameOfLife::GameBoard.new "    \n XX \n XX \n    "
+      @board.next_life.to_s.should == "    \n XX \n XX \n    \n"
+      @board.next_life.to_s.should == "    \n XX \n XX \n    \n"
+    end
+
+    it 'should handle the blinker pattern' do
+      @board = GameOfLife::GameBoard.new "     \n     \n XXX \n     \n     "
+      @board.next_life.to_s.should ==    "     \n  X  \n  X  \n  X  \n     \n"
+      @board.next_life.to_s.should ==    "     \n     \n XXX \n     \n     \n"
+    end
+
+    it 'should handle the glider pattern' do
+      @board = GameOfLife::GameBoard.new "          \n  X       \n   X      \n XXX      \n          \n          \n          \n"
+      @board.next_life.to_s.should ==    "          \n          \n X X      \n  XX      \n  X       \n          \n          \n"
+      @board.next_life.to_s.should ==    "          \n          \n   X      \n X X      \n  XX      \n          \n          \n"
+      @board.next_life.to_s.should ==    "          \n          \n  X       \n   XX     \n  XX      \n          \n          \n"
+      @board.next_life.to_s.should ==    "          \n          \n   X      \n    X     \n  XXX     \n          \n          \n"
+    end
   end
 
   it 'should be built with initial number of rows from config state' do
