@@ -10,6 +10,7 @@ module GameOfLife
   class GameBoard
     def initialize(board_config = '')
       @board = rows_from(board_config).enum_for(:each_with_index).collect {|row_config, row| columns_for row_config, row }
+      @board_alive = @board.inject([]) {|cells, row| cells + row.select {|cell| cell.is_alive } }
     end
 
     def to_s
