@@ -1,3 +1,8 @@
+require 'delegate'
+require_relative 'cell'
+require_relative 'neighbors'
+require_relative 'rule'
+
 module GameOfLife
 
   DEAD_BOARD_CELL = GameOfLife::Cell.new(GameOfLife::DEAD_CELL)
