@@ -54,11 +54,11 @@ describe 'initial state of board' do
 
   describe 'columns' do
     it 'should have live cells' do
-      @board.columns_for("x")[0].is_alive.should == true
+      @board.columns_for("x",0)[0].is_alive.should == true
     end
 
     it 'should have dead cells' do
-      @board.columns_for(" ")[0].is_alive.should == false
+      @board.columns_for(" ", 0)[0].is_alive.should == false
     end
   end
 

@@ -9,7 +9,7 @@ module GameOfLife
 
   class GameBoard
     def initialize(board_config = '')
-      @board = rows_from(board_config).collect {|row_config| columns_for row_config }
+      @board = rows_from(board_config).enum_for(:each_with_index).collect {|row_config, row| columns_for row_config, row }
     end
 
     def to_s
@@ -44,8 +44,8 @@ module GameOfLife
       board_config.split("\n")
     end
 
-    def columns_for(row_config)
-      Columns.new row_config.chars.collect { |cell_state| CellWithCoords.new(0,0,Cell.new(state_for(cell_state))) }
+    def columns_for(row_config, row)
+      Columns.new row_config.chars.enum_for(:each_with_index).collect { |cell_state, col| CellWithCoords.new(row,col,Cell.new(state_for(cell_state))) }
     end
 
     def state_for(cell_representation)
