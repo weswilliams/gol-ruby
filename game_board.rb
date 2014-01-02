@@ -5,7 +5,7 @@ require_relative 'rule'
 
 module GameOfLife
 
-  DEAD_BOARD_CELL = GameOfLife::Cell.new(GameOfLife::DEAD_CELL)
+  DEAD_BOARD_CELL = Cell.new(DEAD_CELL)
 
   class GameBoard
     def initialize(board_config = '')
@@ -17,7 +17,7 @@ module GameOfLife
     end
 
     def [](index)
-      return Columns.new(Array.new(columns, GameOfLife::DEAD_BOARD_CELL)) if index < 0 || index >= @board.size
+      return Columns.new(Array.new(columns, DEAD_BOARD_CELL)) if index < 0 || index >= @board.size
       @board[index]
     end
 
@@ -45,16 +45,16 @@ module GameOfLife
     end
 
     def columns_for(row_config)
-      Columns.new row_config.chars.collect { |cell_state| GameOfLife::Cell.new(state_for(cell_state)) }
+      Columns.new row_config.chars.collect { |cell_state| Cell.new(state_for(cell_state)) }
     end
 
     def state_for(cell_representation)
-      return GameOfLife::ALIVE_CELL if GameOfLife::ALIVE_CELL.to_s == cell_representation.upcase
-      GameOfLife::DEAD_CELL
+      return ALIVE_CELL if ALIVE_CELL.to_s == cell_representation.upcase
+      DEAD_CELL
     end
 
     def find_neighbors_for(row, col)
-      GameOfLife::Neighbors.new remove_self_from(neighboring_cols_of(neighboring_rows_of(self, row), col))
+      Neighbors.new remove_self_from(neighboring_cols_of(neighboring_rows_of(self, row), col))
     end
 
     def remove_self_from(neighbors)

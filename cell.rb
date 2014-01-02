@@ -1,3 +1,4 @@
+require 'delegate'
 require_relative 'rule'
 
 module GameOfLife
@@ -43,6 +44,19 @@ module GameOfLife
     def to_s
       @state.to_s
     end
+  end
+
+  class CellWithCoords < SimpleDelegator
+    def initialize(row=0,col=0,cell=nil)
+      super(cell)
+      @row = row
+      @col = col
+    end
+
+    def next_life(neighbors)
+      CellWithCoords.new @row, @col, __getobj__.next_life(neighbors)
+    end
+
   end
 
 end
