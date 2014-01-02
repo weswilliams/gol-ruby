@@ -5,7 +5,7 @@ require_relative 'rule'
 
 module GameOfLife
 
-  DEAD_BOARD_CELL = Cell.new(DEAD_CELL)
+  DEAD_BOARD_CELL = CellWithCoords.new(0,0,Cell.new(DEAD_CELL))
 
   class GameBoard
     def initialize(board_config = '')
@@ -45,7 +45,7 @@ module GameOfLife
     end
 
     def columns_for(row_config)
-      Columns.new row_config.chars.collect { |cell_state| Cell.new(state_for(cell_state)) }
+      Columns.new row_config.chars.collect { |cell_state| CellWithCoords.new(0,0,Cell.new(state_for(cell_state))) }
     end
 
     def state_for(cell_representation)
