@@ -9,6 +9,10 @@ describe 'initial state of board' do
     @board = GameOfLife::GameBoard.new("X X\n X ")
   end
 
+  describe 'temp new infinite board representation' do
+
+  end
+
   describe 'next life' do
     it 'should generate a board representing the next state of lives' do
       @board.next_life.to_s.should == " X \n X \n"
@@ -33,14 +37,6 @@ describe 'initial state of board' do
       @board.next_life.to_s.should ==    "          \n          \n  X       \n   XX     \n  XX      \n          \n          \n"
       @board.next_life.to_s.should ==    "          \n          \n   X      \n    X     \n  XXX     \n          \n          \n"
     end
-  end
-
-  it 'should be built with initial number of rows from config state' do
-    @board.rows.should == 2
-  end
-
-  it 'should be built with initial number of columns from config state' do
-    @board.columns.should == 3
   end
 
   it 'should be built with cells representing the state in the config' do

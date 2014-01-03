@@ -8,8 +8,15 @@ module GameOfLife
   DEAD_BOARD_CELL = CellWithCoords.new(0,0,Cell.new(DEAD_CELL))
 
   class GameBoard
+
+    attr_reader :board_alive
+
     def initialize(board_config = '')
-      @board = rows_from(board_config).enum_for(:each_with_index).collect {|row_config, row| columns_for row_config, row }
+      create_board(rows_from(board_config).enum_for(:each_with_index).collect {|row_config, row| columns_for row_config, row })
+    end
+
+    def create_board(rows)
+      @board = rows
       @board_alive = @board.inject([]) {|cells, row| cells + row.select {|cell| cell.is_alive } }
     end
 
@@ -23,13 +30,13 @@ module GameOfLife
     end
 
     def next_life
-      @board = (0...rows).inject([]) do |rows, row_index|
+      create_board((0...rows).inject([]) do |rows, row_index|
         rows << Columns.new((0...columns).inject([]) do |cols, col_index|
           cell = self[row_index][col_index]
           neighbors_for = find_neighbors_for(row_index, col_index)
           cols << cell.next_life(neighbors_for)
         end)
-      end
+      end)
       self
     end
 
@@ -55,35 +62,11 @@ module GameOfLife
     end
 
     def find_neighbors_for(row, col)
-      Neighbors.new remove_self_from(neighboring_cols_of(neighboring_rows_of(self, row), col))
+      Neighbors.new(@board_alive.select do |cell|
+        cell.is_neighboring(:row, row) && cell.is_neighboring(:col, col) && cell.is_not_me(row, col)
+      end)
     end
 
-    def remove_self_from(neighbors)
-      neighbors.delete_at 4
-      neighbors
-    end
-
-    def neighboring_cols_of(rows, col)
-      rows.inject([]) {|cells, row| neighbor_indexes(col).inject(cells) { |cells, col_index| cells << row[col_index] } }
-    end
-
-    def neighboring_rows_of(board, row)
-      neighbor_indexes(row).inject([]) { |rows, row_index|
-        rows << board[row_index]
-      }
-    end
-
-    def neighbor_indexes(index)
-      (first_neighbor_index(index)..last_neighbor_index(index))
-    end
-
-    def last_neighbor_index(cell_index)
-      cell_index + 1
-    end
-
-    def first_neighbor_index(cell_index)
-      cell_index - 1
-    end
   end
 
 end

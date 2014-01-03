@@ -47,6 +47,8 @@ module GameOfLife
   end
 
   class CellWithCoords < SimpleDelegator
+    attr_reader :row, :col
+
     def initialize(row=0,col=0,cell=nil)
       super(cell)
       @row = row
@@ -55,6 +57,14 @@ module GameOfLife
 
     def next_life(neighbors)
       CellWithCoords.new @row, @col, __getobj__.next_life(neighbors)
+    end
+
+    def is_not_me(row, col)
+      !(self.row == row && self.col == col)
+    end
+
+    def is_neighboring(row_or_col, index)
+      (0..1).include? (index - self.send(row_or_col)).abs
     end
 
   end
