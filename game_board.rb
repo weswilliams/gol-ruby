@@ -21,15 +21,15 @@ module GameOfLife
     end
 
     def to_s_size(min = 0, max = 100)
-      (min..max).inject('') do |board, row|
-        row = (min..max).inject(board) do |row_cells, col|
-          cell = @board_alive.find(lambda {GameOfLife::DEAD_BOARD_CELL}) do |cell|
-            cell.row == row && cell.col == col
-          end
-          row_cells + cell.to_s
-        end
-        row + "\n"
-      end
+      (min..max).inject('') { |board, row| row_string(board, max, min, row) + "\n" }
+    end
+
+    def row_string(board_string, max, min, row)
+      (min..max).inject(board_string) { |row_cells, col| row_cells + find_cell_at(col, row).to_s }
+    end
+
+    def find_cell_at(col, row)
+      @board_alive.find(lambda { GameOfLife::DEAD_BOARD_CELL }) { |cell| cell.row == row && cell.col == col }
     end
 
     def to_s
@@ -37,6 +37,11 @@ module GameOfLife
     end
 
     def [](row)
+      cols = active_dim(:col).collect do |col|
+        @board_alive.find(lambda { CellWithCoords.new(row,col,Cell.new(DEAD_CELL)) }) do |cell|
+          cell.row == row && cell.col == col
+        end
+      end
       return Columns.new(Array.new(columns, DEAD_BOARD_CELL)) if row < 0 || row >= @board.size
       @board[row]
     end
