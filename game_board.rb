@@ -40,6 +40,18 @@ module GameOfLife
       self
     end
 
+    def active_dim(dim)
+      ((find_min_max_dim(:min, dim, :-))..(find_min_max_dim(:max, dim, :+)))
+    end
+
+    def find_min_max_dim(min_max, dim, plus_minus)
+      @board_alive.send(min_max, &compare_dim(dim)).send(dim).send(plus_minus,1)
+    end
+
+    def compare_dim(dim)
+      lambda {|cell1, cell2| cell1.send(dim) <=> cell2.send(dim) }
+    end
+
     def rows
       @board.size
     end

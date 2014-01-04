@@ -10,7 +10,18 @@ describe 'initial state of board' do
   end
 
   describe 'temp new infinite board representation' do
-
+    it 'active board should be 1 row before first live cell' do
+      @board.active_dim(:row).include? -1
+    end
+    it 'active board should be 1 row after last live cell' do
+      @board.active_dim(:row).include? 2
+    end
+    it 'active board should be 1 col before first live cell' do
+      @board.active_dim(:col).include? -1
+    end
+    it 'active board should be 1 col after last live cell' do
+      @board.active_dim(:col).include? 3
+    end
   end
 
   describe 'next life' do
