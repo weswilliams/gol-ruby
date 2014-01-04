@@ -20,13 +20,25 @@ module GameOfLife
       @board_alive = @board.inject([]) {|cells, row| cells + row.select {|cell| cell.is_alive } }
     end
 
-    def to_s
-      @board.inject('') {|board, row| board + row.inject('') {|row_cells, cell| row_cells + cell.to_s } + "\n" }
+    def to_s_size(min = 0, max = 100)
+      (min..max).inject('') do |board, row|
+        row = (min..max).inject(board) do |row_cells, col|
+          cell = @board_alive.find(lambda {GameOfLife::DEAD_BOARD_CELL}) do |cell|
+            cell.row == row && cell.col == col
+          end
+          row_cells + cell.to_s
+        end
+        row + "\n"
+      end
     end
 
-    def [](index)
-      return Columns.new(Array.new(columns, DEAD_BOARD_CELL)) if index < 0 || index >= @board.size
-      @board[index]
+    def to_s
+      to_s_size
+    end
+
+    def [](row)
+      return Columns.new(Array.new(columns, DEAD_BOARD_CELL)) if row < 0 || row >= @board.size
+      @board[row]
     end
 
     def next_life
