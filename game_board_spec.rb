@@ -10,6 +10,13 @@ describe 'initial state of board' do
   end
 
   describe 'temp new infinite board representation' do
+    it 'should find a row size of active columns' do
+      @board.row(0).size.should == 5
+    end
+    it 'should represent a row with live and dead cells' do
+      @board.row(0).find {|cell| cell.col == 0}.is_alive.should == true
+    end
+
     it 'active board should be 1 row before first live cell' do
       @board.active_dim(:row).include? -1
     end

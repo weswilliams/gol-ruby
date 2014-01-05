@@ -36,12 +36,15 @@ module GameOfLife
       to_s_size
     end
 
-    def [](row)
-      cols = active_dim(:col).collect do |col|
-        @board_alive.find(lambda { CellWithCoords.new(row,col,Cell.new(DEAD_CELL)) }) do |cell|
-          cell.row == row && cell.col == col
+    def row(row_index)
+      Columns.new(active_dim(:col).collect do |col|
+        @board_alive.find(lambda { CellWithCoords.new(row_index,col,Cell.new(DEAD_CELL)) }) do |cell|
+          cell.row == row_index && cell.col == col
         end
-      end
+      end)
+    end
+
+    def [](row)
       return Columns.new(Array.new(columns, DEAD_BOARD_CELL)) if row < 0 || row >= @board.size
       @board[row]
     end
