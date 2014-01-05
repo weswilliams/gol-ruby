@@ -31,14 +31,6 @@ module GameOfLife
       to_s_size
     end
 
-    def row(row_index)
-      Columns.new(active_dim(:col).collect do |col|
-        @board_alive.find(lambda { CellWithCoords.new(row_index,col,Cell.new(DEAD_CELL)) }) do |cell|
-          cell.row == row_index && cell.col == col
-        end
-      end)
-    end
-
     def next_life
       create_board(active_dim(:row).inject([]) do |rows, row_index|
         rows << Columns.new(active_dim(:col).inject([]) do |cols, col_index|
@@ -48,6 +40,15 @@ module GameOfLife
         end)
       end)
       self
+    end
+
+    # next life methods
+    def row(row_index)
+      Columns.new(active_dim(:col).collect do |col|
+        @board_alive.find(lambda { CellWithCoords.new(row_index,col,Cell.new(DEAD_CELL)) }) do |cell|
+          cell.row == row_index && cell.col == col
+        end
+      end)
     end
 
     def active_dim(dim)
@@ -62,6 +63,13 @@ module GameOfLife
       lambda {|cell1, cell2| cell1.send(dim) <=> cell2.send(dim) }
     end
 
+    def find_neighbors_for(row, col)
+      Neighbors.new(@board_alive.select do |cell|
+        cell.is_neighboring(:row, row) && cell.is_neighboring(:col, col) && cell.is_not_me(row, col)
+      end)
+    end
+
+    #methods to create board from seed string
     def create_board(rows)
       @board_alive = rows.inject([]) {|cells, row| cells + row.select {|cell| cell.is_alive } }
     end
@@ -77,12 +85,6 @@ module GameOfLife
     def state_for(cell_representation)
       return ALIVE_CELL if ALIVE_CELL.to_s == cell_representation.upcase
       DEAD_CELL
-    end
-
-    def find_neighbors_for(row, col)
-      Neighbors.new(@board_alive.select do |cell|
-        cell.is_neighboring(:row, row) && cell.is_neighboring(:col, col) && cell.is_not_me(row, col)
-      end)
     end
 
   end
