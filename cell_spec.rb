@@ -45,7 +45,7 @@ describe 'game of life' do
     end
 
     it 'should be represented as a X' do
-      @cell.to_s.should == 'X'
+      @cell.to_s.should == GameOfLife::ALIVE_CELL.to_s
     end
 
     it 'can be created alive' do

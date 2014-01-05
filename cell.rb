@@ -24,7 +24,7 @@ module GameOfLife
   end
 
   DEAD_CELL = CellState.new ' '
-  ALIVE_CELL = CellState.new 'X'
+  ALIVE_CELL = CellState.new '0'
 
   class Cell
     attr_accessor :state
