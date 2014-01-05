@@ -44,11 +44,6 @@ module GameOfLife
       end)
     end
 
-    def [](row)
-      return Columns.new(Array.new(columns, DEAD_BOARD_CELL)) if row < 0 || row >= @board.size
-      @board[row]
-    end
-
     def next_life
       create_board((0...rows).inject([]) do |rows, row_index|
         rows << Columns.new((0...columns).inject([]) do |cols, col_index|
