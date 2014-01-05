@@ -9,28 +9,6 @@ describe 'initial state of board' do
     @board = GameOfLife::GameBoard.new("X X\n X ")
   end
 
-  describe 'temp new infinite board representation' do
-    it 'should find a row size of active columns' do
-      @board.row(0).size.should == 5
-    end
-    it 'should represent a row with live and dead cells' do
-      @board.row(0)[0] == true
-    end
-
-    it 'active board should be 1 row before first live cell' do
-      @board.active_dim(:row).include? -1
-    end
-    it 'active board should be 1 row after last live cell' do
-      @board.active_dim(:row).include? 2
-    end
-    it 'active board should be 1 col before first live cell' do
-      @board.active_dim(:col).include? -1
-    end
-    it 'active board should be 1 col after last live cell' do
-      @board.active_dim(:col).include? 3
-    end
-  end
-
   describe 'next life' do
     it 'should generate a board representing the next state of lives' do
       @board.next_life.to_s_size(0,2).should == " X \n X \n   \n"

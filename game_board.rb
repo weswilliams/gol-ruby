@@ -16,8 +16,7 @@ module GameOfLife
     end
 
     def create_board(rows)
-      @board = rows
-      @board_alive = @board.inject([]) {|cells, row| cells + row.select {|cell| cell.is_alive } }
+      @board_alive = rows.inject([]) {|cells, row| cells + row.select {|cell| cell.is_alive } }
     end
 
     def to_s_size(min = 0, max = 100)
@@ -45,8 +44,8 @@ module GameOfLife
     end
 
     def next_life
-      create_board((0...rows).inject([]) do |rows, row_index|
-        rows << Columns.new((0...columns).inject([]) do |cols, col_index|
+      create_board(active_dim(:row).inject([]) do |rows, row_index|
+        rows << Columns.new(active_dim(:col).inject([]) do |cols, col_index|
           cell = row(row_index)[col_index]
           neighbors_for = find_neighbors_for(row_index, col_index)
           cols << cell.next_life(neighbors_for)
@@ -65,14 +64,6 @@ module GameOfLife
 
     def compare_dim(dim)
       lambda {|cell1, cell2| cell1.send(dim) <=> cell2.send(dim) }
-    end
-
-    def rows
-      @board.size
-    end
-
-    def columns
-      @board[0].size
     end
 
     def rows_from(board_config)
