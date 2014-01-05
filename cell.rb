@@ -56,6 +56,9 @@ module GameOfLife
       @state.to_s
     end
 
+    def ==(another_cell)
+      @row == another_cell.row && @col == another_cell.col
+    end
   end
 
 end

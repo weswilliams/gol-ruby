@@ -17,6 +17,26 @@ end
 
 describe 'game of life' do
 
+  describe 'cell equality' do
+    it 'should be equal with same row and col' do
+      cell1 = GameOfLife::Cell.new 0, 0, GameOfLife::DEAD_CELL
+      cell2 = GameOfLife::Cell.new 0, 0, GameOfLife::ALIVE_CELL
+      (cell1 == cell2).should == true
+    end
+
+    it 'should not be equal with a different row' do
+      cell1 = GameOfLife::Cell.new 0, 0, GameOfLife::DEAD_CELL
+      cell2 = GameOfLife::Cell.new 1, 0, GameOfLife::ALIVE_CELL
+      (cell1 == cell2).should == false
+    end
+
+    it 'should not be equal with a different col' do
+      cell1 = GameOfLife::Cell.new 0, 0, GameOfLife::DEAD_CELL
+      cell2 = GameOfLife::Cell.new 0, 1, GameOfLife::ALIVE_CELL
+      (cell1 == cell2).should == false
+    end
+  end
+
   describe 'dead cells' do
     before do
       @cell = GameOfLife::Cell.new(0,0,GameOfLife::DEAD_CELL)
