@@ -33,11 +33,11 @@ module GameOfLife
 
     def next_life
       create_board(active_dim(:row).inject([]) do |rows, row_index|
-        rows << Columns.new(active_dim(:col).inject([]) do |cols, col_index|
+        rows << active_dim(:col).inject([]) do |cols, col_index|
           cell = find_cell_at(col_index, row_index)
           neighbors_for = find_neighbors_for(row_index, col_index)
           cols << cell.next_life(neighbors_for)
-        end)
+        end
       end)
       self
     end
@@ -71,7 +71,7 @@ module GameOfLife
     end
 
     def columns_for(row_config, row)
-      Columns.new row_config.chars.enum_for(:each_with_index).collect { |cell_state, col| CellWithCoords.new(row,col,Cell.new(state_for(cell_state))) }
+      row_config.chars.enum_for(:each_with_index).collect { |cell_state, col| CellWithCoords.new(row,col,Cell.new(state_for(cell_state))) }
     end
 
     def state_for(cell_representation)
@@ -81,10 +81,4 @@ module GameOfLife
 
   end
 
-end
-
-class Columns < SimpleDelegator
-  def [](index)
-    __getobj__.find {|cell| cell.col == index}
-  end
 end
