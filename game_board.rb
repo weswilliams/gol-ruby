@@ -15,10 +15,6 @@ module GameOfLife
       create_board(rows_from(board_config).enum_for(:each_with_index).collect {|row_config, row| columns_for row_config, row })
     end
 
-    def create_board(rows)
-      @board_alive = rows.inject([]) {|cells, row| cells + row.select {|cell| cell.is_alive } }
-    end
-
     def to_s_size(min = 0, max = 100)
       (min..max).inject('') { |board, row| row_string(board, max, min, row) + "\n" }
     end
@@ -66,6 +62,10 @@ module GameOfLife
       lambda {|cell1, cell2| cell1.send(dim) <=> cell2.send(dim) }
     end
 
+    def create_board(rows)
+      @board_alive = rows.inject([]) {|cells, row| cells + row.select {|cell| cell.is_alive } }
+    end
+
     def rows_from(board_config)
       board_config.split("\n")
     end
@@ -90,10 +90,7 @@ module GameOfLife
 end
 
 class Columns < SimpleDelegator
-
   def [](index)
-    cell = __getobj__.find {|cell| cell.col == index}
-    return GameOfLife::DEAD_BOARD_CELL if cell == nil
-    cell
+    __getobj__.find {|cell| cell.col == index}
   end
 end
