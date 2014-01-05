@@ -26,7 +26,7 @@ module GameOfLife
   DEAD_CELL = CellState.new ' '
   ALIVE_CELL = CellState.new 'O'
 
-  class CellWithCoords
+  class Cell
     attr_reader :row, :col
     attr_accessor :state
 
@@ -37,7 +37,7 @@ module GameOfLife
     end
 
     def next_life(neighbors)
-      CellWithCoords.new @row, @col, @state.next_state(neighbors)
+      Cell.new @row, @col, @state.next_state(neighbors)
     end
 
     def is_not_me(row, col)

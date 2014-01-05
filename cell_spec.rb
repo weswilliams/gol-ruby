@@ -11,7 +11,7 @@ end
 
 def alive_neighbors(cnt = 1)
   neighbors = []
-  (1..cnt).each { neighbors << GameOfLife::CellWithCoords.new(0,0,GameOfLife::ALIVE_CELL) }
+  (1..cnt).each { neighbors << GameOfLife::Cell.new(0,0,GameOfLife::ALIVE_CELL) }
   GameOfLife::Neighbors.new neighbors
 end
 
@@ -19,7 +19,7 @@ describe 'game of life' do
 
   describe 'dead cells' do
     before do
-      @cell = GameOfLife::CellWithCoords.new(0,0,GameOfLife::DEAD_CELL)
+      @cell = GameOfLife::Cell.new(0,0,GameOfLife::DEAD_CELL)
     end
 
     it 'should be represented as a space' do
@@ -41,7 +41,7 @@ describe 'game of life' do
 
   describe 'alive cells' do
     before do
-      @cell = GameOfLife::CellWithCoords.new 0,0, GameOfLife::ALIVE_CELL
+      @cell = GameOfLife::Cell.new 0,0, GameOfLife::ALIVE_CELL
     end
 
     it 'should be represented as a X' do
