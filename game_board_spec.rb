@@ -14,7 +14,7 @@ describe 'initial state of board' do
       @board.row(0).size.should == 5
     end
     it 'should represent a row with live and dead cells' do
-      @board.row(0).find {|cell| cell.col == 0}.is_alive.should == true
+      @board.row(0)[0] == true
     end
 
     it 'active board should be 1 row before first live cell' do

@@ -52,7 +52,7 @@ module GameOfLife
     def next_life
       create_board((0...rows).inject([]) do |rows, row_index|
         rows << Columns.new((0...columns).inject([]) do |cols, col_index|
-          cell = self[row_index][col_index]
+          cell = row(row_index)[col_index]
           neighbors_for = find_neighbors_for(row_index, col_index)
           cols << cell.next_life(neighbors_for)
         end)
