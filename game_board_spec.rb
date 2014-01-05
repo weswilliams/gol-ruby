@@ -35,11 +35,6 @@ describe 'initial state of board' do
     end
   end
 
-  it 'should be built with cells representing the state in the config' do
-    @board.row(0)[0].is_alive.should == true
-    @board.row(1)[2].is_alive.should == false
-  end
-
   it 'can be represented as a string' do
     @board.to_s_size(0,2).should == "X X\n X \n   \n"
   end

@@ -34,7 +34,7 @@ module GameOfLife
     def next_life
       create_board(active_dim(:row).inject([]) do |rows, row_index|
         rows << Columns.new(active_dim(:col).inject([]) do |cols, col_index|
-          cell = row(row_index)[col_index]
+          cell = find_cell_at(col_index, row_index)
           neighbors_for = find_neighbors_for(row_index, col_index)
           cols << cell.next_life(neighbors_for)
         end)
@@ -43,14 +43,6 @@ module GameOfLife
     end
 
     # next life methods
-    def row(row_index)
-      Columns.new(active_dim(:col).collect do |col|
-        @board_alive.find(lambda { CellWithCoords.new(row_index,col,Cell.new(DEAD_CELL)) }) do |cell|
-          cell.row == row_index && cell.col == col
-        end
-      end)
-    end
-
     def active_dim(dim)
       ((find_min_max_dim(:min, dim, :-))..(find_min_max_dim(:max, dim, :+)))
     end
