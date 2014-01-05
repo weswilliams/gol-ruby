@@ -20,10 +20,10 @@ module GameOfLife
     end
 
     def row_string(board_string, max, min, row)
-      (min..max).inject(board_string) { |row_cells, col| row_cells + find_cell_at(col, row).to_s }
+      (min..max).inject(board_string) { |row_cells, col| row_cells + find_cell_at(row, col).to_s }
     end
 
-    def find_cell_at(col, row)
+    def find_cell_at(row, col)
       @board_alive.find(lambda { CellWithCoords.new(row, col, Cell.new(DEAD_CELL)) }) { |cell| cell.row == row && cell.col == col }
     end
 
@@ -34,7 +34,7 @@ module GameOfLife
     def next_life
       create_board(active_dim(:row).inject([]) do |rows, row_index|
         rows << active_dim(:col).inject([]) do |cols, col_index|
-          cell = find_cell_at(col_index, row_index)
+          cell = find_cell_at(row_index, col_index)
           neighbors_for = find_neighbors_for(row_index, col_index)
           cols << cell.next_life(neighbors_for)
         end
