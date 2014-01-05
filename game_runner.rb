@@ -1,6 +1,6 @@
 require_relative 'game_board'
 
-game = GameOfLife::GameBoard.new "          \n  X       \n   X      \n XXX      \n          \n          \n          \n"
+game = GameOfLife::GameBoard.new File.open((ARGV.first || 'spinner') + '.txt', 'r').each_line.reduce('', :+)
 
 (0..100).each do
   sleep 0.2
