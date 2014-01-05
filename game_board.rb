@@ -29,7 +29,7 @@ module GameOfLife
     end
 
     def find_cell_at(col, row)
-      @board_alive.find(lambda { GameOfLife::DEAD_BOARD_CELL }) { |cell| cell.row == row && cell.col == col }
+      @board_alive.find(lambda { CellWithCoords.new(row, col, Cell.new(DEAD_CELL)) }) { |cell| cell.row == row && cell.col == col }
     end
 
     def to_s
@@ -106,7 +106,8 @@ end
 class Columns < SimpleDelegator
 
   def [](index)
-    return GameOfLife::DEAD_BOARD_CELL if index < 0 || index >= __getobj__.size
-    __getobj__[index]
+    cell = __getobj__.find {|cell| cell.col == index}
+    return GameOfLife::DEAD_BOARD_CELL if cell == nil
+    cell
   end
 end
