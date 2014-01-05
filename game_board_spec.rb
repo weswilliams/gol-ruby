@@ -14,6 +14,11 @@ describe 'initial state of board' do
   end
 
   describe 'next life' do
+    it 'should handle and empty board' do
+      @board = GameOfLife::GameBoard.new ''
+      @board.next_life.to_s.strip.should == ''
+    end
+
     it 'should generate a board representing the next state of lives' do
       @board.next_life.to_s_size(0,2).should == replace_with_live_state(" X \n X \n   \n")
     end

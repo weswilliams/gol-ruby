@@ -44,6 +44,7 @@ module GameOfLife
 
     # next life methods
     def active_dim(dim)
+      return (0..0) if @board_alive.none?
       ((find_min_max_dim(:min, dim, :-))..(find_min_max_dim(:max, dim, :+)))
     end
 
