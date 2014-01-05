@@ -75,8 +75,8 @@ module GameOfLife
     end
 
     def state_for(cell_representation)
-      return ALIVE_CELL if ALIVE_CELL.to_s == cell_representation.upcase
-      DEAD_CELL
+      return DEAD_CELL if DEAD_CELL.to_s == cell_representation.upcase
+      ALIVE_CELL
     end
 
   end
