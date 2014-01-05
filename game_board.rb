@@ -5,7 +5,7 @@ require_relative 'rule'
 
 module GameOfLife
 
-  DEAD_BOARD_CELL = CellWithCoords.new(0,0,Cell.new(DEAD_CELL))
+  DEAD_BOARD_CELL = CellWithCoords.new(0,0,DEAD_CELL)
 
   class GameBoard
 
@@ -24,7 +24,7 @@ module GameOfLife
     end
 
     def find_cell_at(row, col)
-      @board_alive.find(lambda { CellWithCoords.new(row, col, Cell.new(DEAD_CELL)) }) { |cell| cell.row == row && cell.col == col }
+      @board_alive.find(lambda { CellWithCoords.new(row, col, DEAD_CELL) }) { |cell| cell.row == row && cell.col == col }
     end
 
     def to_s
@@ -71,7 +71,7 @@ module GameOfLife
     end
 
     def columns_for(row_config, row)
-      row_config.chars.enum_for(:each_with_index).collect { |cell_state, col| CellWithCoords.new(row,col,Cell.new(state_for(cell_state))) }
+      row_config.chars.enum_for(:each_with_index).collect { |cell_state, col| CellWithCoords.new(row,col,state_for(cell_state)) }
     end
 
     def state_for(cell_representation)

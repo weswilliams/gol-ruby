@@ -26,37 +26,18 @@ module GameOfLife
   DEAD_CELL = CellState.new ' '
   ALIVE_CELL = CellState.new 'O'
 
-  class Cell
+  class CellWithCoords
+    attr_reader :row, :col
     attr_accessor :state
 
-    def initialize(state = nil)
+    def initialize(row=0,col=0,state=nil)
       @state = state || GameOfLife::DEAD_CELL
-    end
-
-    def next_life(neighbors)
-      Cell.new @state.next_state(neighbors)
-    end
-
-    def is_alive
-      @state == GameOfLife::ALIVE_CELL
-    end
-
-    def to_s
-      @state.to_s
-    end
-  end
-
-  class CellWithCoords < SimpleDelegator
-    attr_reader :row, :col
-
-    def initialize(row=0,col=0,cell=nil)
-      super(cell)
       @row = row
       @col = col
     end
 
     def next_life(neighbors)
-      CellWithCoords.new @row, @col, __getobj__.next_life(neighbors)
+      CellWithCoords.new @row, @col, @state.next_state(neighbors)
     end
 
     def is_not_me(row, col)
@@ -65,6 +46,14 @@ module GameOfLife
 
     def is_neighboring(row_or_col, index)
       (0..1).include? (index - self.send(row_or_col)).abs
+    end
+
+    def is_alive
+      @state == GameOfLife::ALIVE_CELL
+    end
+
+    def to_s
+      @state.to_s
     end
 
   end
