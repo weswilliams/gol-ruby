@@ -7,6 +7,6 @@ number_lives = ARGV[2] || 1000
 (0..number_lives.to_i).each do |cnt|
   sleep 0.2
   system 'clear'
-  puts game.next_life.to_s_size(0,board_size.to_i)
+  puts game.next_life.to_s_size(-5,board_size.to_i)
   puts "life \##{cnt}"
 end

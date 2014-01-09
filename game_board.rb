@@ -36,21 +36,15 @@ module GameOfLife
     end
 
     def next_life
-      create_board(active_dim(:row).inject([]) do |rows, row_index|
-        rows << active_dim(:col).inject([]) do |cols, col_index|
-          cell = find_cell_at(row_index, col_index)
-          neighbors_for = find_live_neighbors_for(row_index, col_index)
-          cols << cell.next_life(neighbors_for)
-        end
-      end)
-      self
-    end
-
-    def new_next_life
-      create_board(@board_alive.inject([]) {|cells, cell|
+      live_cell_and_neighbors = @board_alive.inject([]) { |cells, cell|
         cells + find_all_neighbors_for(cell.row, cell.col)
-      }.uniq.collect() {|cell|
-        cell.next_life(find_live_neighbors_for(cell.row, cell.col)) })
+      }
+      uniq_cells = live_cell_and_neighbors.uniq {|cell| cell.hash }
+      next_life_cells = uniq_cells.collect { |cell|
+        cell.next_life(find_live_neighbors_for(cell.row, cell.col))
+      }
+      create_board(next_life_cells)
+      self
     end
 
     # next life methods
