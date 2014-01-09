@@ -39,11 +39,18 @@ module GameOfLife
       create_board(active_dim(:row).inject([]) do |rows, row_index|
         rows << active_dim(:col).inject([]) do |cols, col_index|
           cell = find_cell_at(row_index, col_index)
-          neighbors_for = find_neighbors_for(row_index, col_index)
+          neighbors_for = find_live_neighbors_for(row_index, col_index)
           cols << cell.next_life(neighbors_for)
         end
       end)
       self
+    end
+
+    def new_next_life
+      create_board(@board_alive.inject([]) {|cells, cell|
+        cells + find_all_neighbors_for(cell.row, cell.col)
+      }.uniq.collect() {|cell|
+        cell.next_life(find_live_neighbors_for(cell.row, cell.col)) })
     end
 
     # next life methods
@@ -60,15 +67,20 @@ module GameOfLife
       lambda {|cell1, cell2| cell1.send(dim) <=> cell2.send(dim) }
     end
 
-    def find_neighbors_for(row, col)
+    def find_live_neighbors_for(row, col)
       Neighbors.new(@board_alive.select do |cell|
         cell.is_neighboring(:row, row) && cell.is_neighboring(:col, col) && cell.is_not_me(row, col)
       end)
     end
 
+    def find_all_neighbors_for(row, col)
+      ((row-1)..(row+1)).inject([]) { |neighbors, row|
+        neighbors + ((col-1)..(col+1)).collect {|col| find_cell_at(row, col) } }
+    end
+
     #methods to create board from seed string
     def create_board(rows)
-      @board_alive = rows.inject([]) {|cells, row| cells + row.select {|cell| cell.is_alive } }
+      @board_alive = rows.flatten.find_all { |cell| cell.is_alive }
     end
 
     def rows_from(board_config)

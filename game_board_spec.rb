@@ -14,6 +14,9 @@ describe 'initial state of board' do
   end
 
   describe 'next life' do
+    it 'should find all neighbors for a cell' do
+      @board.find_all_neighbors_for(0,0).size.should == 9
+    end
     it 'should handle and empty board' do
       @board = GameOfLife::GameBoard.new ''
       @board.next_life.to_s.strip.should == ''
@@ -75,22 +78,22 @@ describe 'initial state of board' do
   describe 'neighbors' do
     it 'should be able to find neighbors for a cell' do
       @board = GameOfLife::GameBoard.new("X X\n X \n   ")
-      @board.find_neighbors_for(1,1).number_alive.should == 2
+      @board.find_live_neighbors_for(1,1).number_alive.should == 2
     end
 
     it 'should be able to find neighbors for a cell on the edge of the board' do
       @board = GameOfLife::GameBoard.new("X X\n X \nX  ")
-      @board.find_neighbors_for(0,0).number_alive.should == 1
+      @board.find_live_neighbors_for(0,0).number_alive.should == 1
     end
 
     it 'should be able to find neighbors for a cell on the edge of the board' do
       @board = GameOfLife::GameBoard.new("X X\n X \nX  ")
-      @board.find_neighbors_for(2,0).number_alive.should == 1
+      @board.find_live_neighbors_for(2,0).number_alive.should == 1
     end
 
     it 'should be able to find neighbors for a cell on the edge of the board' do
       @board = GameOfLife::GameBoard.new("X X\n X \nX  ")
-      @board.find_neighbors_for(0,2).number_alive.should == 1
+      @board.find_live_neighbors_for(0,2).number_alive.should == 1
     end
   end
 end
