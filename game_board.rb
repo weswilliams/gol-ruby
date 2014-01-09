@@ -15,12 +15,16 @@ module GameOfLife
       create_board(rows_from(board_config).enum_for(:each_with_index).collect {|row_config, row| columns_for row_config, row })
     end
 
-    def to_s_size(min = 0, max = 100)
-      (min..max).inject('') { |board, row| row_string(board, max, min, row) + "\n" }
+    def to_s_size(start_index = 0, max_dim = 100)
+      index_range(max_dim, start_index).inject('') { |board, row| row_string(board, max_dim, start_index, row) + "\n" }
     end
 
-    def row_string(board_string, max, min, row)
-      (min..max).inject(board_string) { |row_cells, col| row_cells + find_cell_at(row, col).to_s }
+    def index_range(max_dim, start_index)
+      (start_index..(start_index+max_dim))
+    end
+
+    def row_string(board_string, max_dim, start_index, row)
+      index_range(max_dim, start_index).inject(board_string) { |row_cells, col| row_cells + find_cell_at(row, col).to_s }
     end
 
     def find_cell_at(row, col)
