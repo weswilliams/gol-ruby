@@ -59,20 +59,6 @@ module GameOfLife
     def ==(another_cell)
       @row == another_cell.row && @col == another_cell.col
     end
-
-    def <=>(another_cell)
-      return @row <=> another_cell.row if (@row != another_cell.row)
-      @col <=> another_cell.col
-    end
-
-    def hash
-      (@row * hash_transform(@row)) ^ @col
-    end
-
-    def hash_transform(num)
-      return 0x1f1f if num < 0
-      0x1f
-    end
   end
 
 end
