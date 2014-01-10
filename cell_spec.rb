@@ -10,9 +10,9 @@ class CellStateListener
 end
 
 def alive_neighbors(cnt = 1)
-  neighbors = []
-  (1..cnt).each { neighbors << GameOfLife::Cell.new(0,0,GameOfLife::ALIVE_CELL) }
-  GameOfLife::Neighbors.new neighbors
+  neighbors_dbl = double(GameOfLife::Neighbors.class)
+  neighbors_dbl.stub(:number_alive) { cnt }
+  neighbors_dbl
 end
 
 describe 'game of life' do
