@@ -10,9 +10,5 @@ module GameOfLife
       @cells.count { |cell| cell.is_alive }
     end
 
-    def size
-      @cells.size
-    end
-
   end
 end
