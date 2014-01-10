@@ -13,6 +13,8 @@ module GameOfLife
       @cells.count { |cell| cell.is_alive }
     end
 
+    private
+
     def find_neighbors_for(cells, row, col)
       remove_me_from_neighbors(find_all_cells_neighboring(cells, col, row), row, col)
     end
