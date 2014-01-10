@@ -5,8 +5,6 @@ require_relative 'rule'
 
 module GameOfLife
 
-  DEAD_BOARD_CELL = Cell.new(0,0,DEAD_CELL)
-
   class GameBoard
 
     attr_reader :board_alive
