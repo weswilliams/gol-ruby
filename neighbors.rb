@@ -30,7 +30,7 @@ module GameOfLife
     end
 
     def remove_me_from_neighbors(neighbors, my_row, my_col)
-      neighbors.reject {|cell| cell.row == my_row && cell.col == my_col}
+      neighbors.find_all {|cell| cell.is_not_me my_row, my_col }
     end
 
     def find_cell_at(cells, row, col)
