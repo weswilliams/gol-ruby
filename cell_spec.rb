@@ -2,13 +2,6 @@ require 'rspec'
 require_relative 'cell'
 require_relative 'neighbors'
 
-class CellStateListener
-  attr_accessor :current_state
-  def cell_is(state)
-    @current_state = state
-  end
-end
-
 def alive_neighbors(cnt = 1)
   neighbors_dbl = double(GameOfLife::Neighbors.class)
   neighbors_dbl.stub(:number_alive) { cnt }
