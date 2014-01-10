@@ -12,11 +12,13 @@ module GameOfLife
     attr_reader :board_alive
 
     def initialize(board_config = '')
-      create_board(rows_from(board_config).enum_for(:each_with_index).collect {|row_config, row| columns_for row_config, row })
+      create_board(rows_from(board_config).enum_for(:each_with_index).collect {|row_config, row|
+        columns_for row_config, row })
     end
 
     def to_s_size(start_index = 0, max_dim = 100)
-      index_range(max_dim, start_index).inject('') { |board, row| row_string(board, max_dim, start_index, row) + "\n" }
+      index_range(max_dim, start_index).inject('') { |board, row|
+        row_string(board, max_dim, start_index, row) + "\n" }
     end
 
     def to_s
