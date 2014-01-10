@@ -44,10 +44,6 @@ module GameOfLife
       !(self.row == row && self.col == col)
     end
 
-    def is_neighboring(row_or_col, index)
-      (0..1).include? (index - self.send(row_or_col)).abs
-    end
-
     def is_alive
       @state == GameOfLife::ALIVE_CELL
     end
