@@ -10,7 +10,7 @@ module GameOfLife
       @state = state
     end
     def next_state(neighbors)
-      (rules + [default_rule]).find { |rule| rule.apply(neighbors, self) }.rule_cell_state
+      (rules + [default_rule]).find { |rule| rule.apply?(neighbors, self) }.rule_cell_state
     end
     def default_rule
       Rule.new(self) {true}
