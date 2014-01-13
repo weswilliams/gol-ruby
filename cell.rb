@@ -15,8 +15,8 @@ module GameOfLife
     def default_rule
       Rule.new(self) {true}
     end
-    def ==(other_state)
-      other_state.state == @state
+    def ==(other)
+      other.state == @state
     end
     def to_s
       @state
