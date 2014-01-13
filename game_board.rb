@@ -23,7 +23,7 @@ module GameOfLife
       to_s_size
     end
 
-    def next_life
+    def next_life!
       create_board(live_cells_and_neighbors.collect { |cell|
         cell.next_life(find_neighbors_for(cell.row, cell.col))
       })
