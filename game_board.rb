@@ -65,7 +65,7 @@ module GameOfLife
 
     #methods to create board from seed string
     def create_board(rows)
-      @board_alive = rows.flatten.find_all { |cell| cell.is_alive }
+      @board_alive = rows.flatten.find_all { |cell| cell.is_alive? }
     end
 
     def rows_from(board_config)

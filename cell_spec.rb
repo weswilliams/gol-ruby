@@ -40,15 +40,15 @@ describe 'game of life' do
     end
 
     it 'should be dead on creation by default' do
-      @cell.is_alive.should == false
+      @cell.is_alive?.should == false
     end
 
     it 'should stay dead with < 3 live neighbors' do
-      @cell.next_life(alive_neighbors(2)).is_alive.should == false
+      @cell.next_life(alive_neighbors(2)).is_alive?.should == false
     end
 
     it 'should come alive with 3 live neighbors' do
-      @cell.next_life(alive_neighbors(3)).is_alive.should == true
+      @cell.next_life(alive_neighbors(3)).is_alive?.should == true
     end
   end
 
@@ -62,27 +62,27 @@ describe 'game of life' do
     end
 
     it 'can be created alive' do
-      @cell.is_alive.should == true
+      @cell.is_alive?.should == true
     end
 
     it 'should die with no live neighbors' do
-      @cell.next_life(alive_neighbors(0)).is_alive.should == false
+      @cell.next_life(alive_neighbors(0)).is_alive?.should == false
     end
 
     it 'should die with 1 live neighbor' do
-      @cell.next_life(alive_neighbors(1)).is_alive.should == false
+      @cell.next_life(alive_neighbors(1)).is_alive?.should == false
     end
 
     it 'should stay alive with 2 live neighbors' do
-      @cell.next_life(alive_neighbors(2)).is_alive.should == true
+      @cell.next_life(alive_neighbors(2)).is_alive?.should == true
     end
 
     it 'should stay alive with 3 live neighbors' do
-      @cell.next_life(alive_neighbors(3)).is_alive.should == true
+      @cell.next_life(alive_neighbors(3)).is_alive?.should == true
     end
 
     it 'should die with > 3 alive neighbors due to over crowding' do
-      @cell.next_life(alive_neighbors(4)).is_alive.should == false
+      @cell.next_life(alive_neighbors(4)).is_alive?.should == false
     end
   end
 

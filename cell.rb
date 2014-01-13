@@ -40,11 +40,11 @@ module GameOfLife
       Cell.new @row, @col, @state.next_state(neighbors)
     end
 
-    def is_not_me(row, col)
+    def is_not_me?(row, col)
       !(self.row == row && self.col == col)
     end
 
-    def is_alive
+    def is_alive?
       @state == GameOfLife::ALIVE_CELL
     end
 
