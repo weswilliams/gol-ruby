@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require_relative 'game_board'
 
 game = GameOfLife::GameBoard.new File.open((ARGV[0] || 'spinner') + '.txt', 'r').each_line.reduce('', :+)
